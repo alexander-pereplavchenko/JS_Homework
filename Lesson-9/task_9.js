@@ -104,7 +104,7 @@ clonedObj.array.push(2);
 console.log(initialObj);
 console.log(clonedObj);
 
-// // --------------task_3-------------
+// // --------------task_3------------
 
 
 function deepCompare (obj1, obj2) {
