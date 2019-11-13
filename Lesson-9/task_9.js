@@ -106,41 +106,58 @@ console.log(clonedObj);
 
 // // --------------task_3-------------
 
-function deepCompare(obj1, obj2) {
 
-    if (obj1 != obj2 && (typeof obj1 === 'object' && (obj1 != null) && (typeof obj2 === 'object' && (obj2 != null)))) {
+function deepCompare (obj1, obj2) {
+    var counter = 0;
 
-        for (var key in obj1) {
-            if (obj1[key] != obj2[key]) return false;
+    outer: for (var i in obj1) {
+        counter = 0;
+
+        for (var j in obj2) {
+            if (i===j) {
+                if(Array.isArray(obj1[i]) && Array.isArray(obj2[j])) {
+                    if( !deepCompare(obj1[i],obj2[j]) ) {
+                        return false;
+                    }
+                    counter++;
+                    continue outer;
+                }
+                if (((obj1[i] === null)) &&
+                    ((obj2[j] === null))) {
+                    counter++;
+                    continue outer;
+                }
+                if (((typeof(obj1[i]) === 'function')) &&
+                    ((typeof(obj2[j]) === 'function'))) {
+                    if (obj1[i].toString() !== obj2[j].toString()) {
+                        return false;
+                    }
+                    counter++;
+                    continue outer;
+                }
+                if (((typeof(obj1[i]) === 'object')) &&
+                    ((typeof(obj2[j]) === 'object'))) {
+                    if( !deepCompare(obj1[i],obj2[j]) ) {
+                        return false;
+                    }
+                    counter++;
+                    continue outer;
+                }
+                if (obj1[i] === obj2[j]) {
+                    counter++;
+                    continue outer;
+                }
+            }
         }
-
-        for (var key in obj2) {
-            if (deepCompare(obj1[key], obj2[key])) return true;
+        if(!counter++) {
+            return false;
         }
-        return false;
-    };
+    }
     return true;
 }
-var objFirst = {
-    string: 'Vasya',
-    number: 30,
-    boolean: true,
-    undefined: undefined,
-    null: null,
-    array: [1, 2, 3, 5, 6, 8, 9],
-    object: {
-        string2: 'Petrov',
-        object2: {
-            array2: [{}, {}]
-        },
-        object3: {}
-    },
-    method: function() {
-        alert('Hi');
-    }
-},
 
-    objSecond = {
+
+var Obj1 = {
     string: 'Vasya',
     number: 30,
     boolean: true,
@@ -159,4 +176,23 @@ var objFirst = {
     }
 };
 
-console.log(deepCompare(objFirst, objSecond));
+var Obj2 = {
+    string: 'Vasya',
+    number: 30,
+    boolean: true,
+    undefined: undefined,
+    null: null,
+    array: [1, 2, 3],
+    object: {
+        string2: 'Petrov',
+        object2: {
+            array2: [{}, {}]
+        },
+        object3: {}
+    },
+    method: function() {
+        alert('Hello');
+    }
+};
+
+console.log(deepCompare(Obj1,Obj2));

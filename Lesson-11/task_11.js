@@ -6,14 +6,16 @@ function getArrOfObjects(v, i, a) {
 }
 console.log(arr.map(getArrOfObjects))
 
-// --------------task_2-------------
+// --------------task_2------------
 
-var arr = ['00', '13', '24'];
-
-function getTime(r, v, i, a) {
-   return 'Текущее время : ' + a.join(' : ') + '"'
+var arrTime = ['00', '13', '24'];
+function showTimeNow(arrTime) {
+    function getTime(r, v, i, a) {
+        return r + ' : ' + v;
+    }
+    return  'Текущее время' + arrTime.reduce(getTime, '') + '"';
 }
-console.log(arr.reduce(getTime))
+console.log(showTimeNow(arrTime));
 
 // --------------task_3-------------
 
