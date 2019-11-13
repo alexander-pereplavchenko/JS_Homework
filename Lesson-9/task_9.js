@@ -157,7 +157,7 @@ function deepCompare (obj1, obj2) {
 }
 
 
-var Obj1 = {
+var obj1 = {
     string: 'Vasya',
     number: 30,
     boolean: true,
@@ -176,7 +176,7 @@ var Obj1 = {
     }
 };
 
-var Obj2 = {
+var obj2 = {
     string: 'Vasya',
     number: 30,
     boolean: true,
@@ -195,4 +195,4 @@ var Obj2 = {
     }
 };
 
-console.log(deepCompare(Obj1,Obj2));
+console.log(deepCompare(obj1,obj2));
